@@ -1,98 +1,86 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Paymob NestJS Integration – Technical Assessment
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This project is a backend NestJS application built as part of the Paymob Engineering Team technical assessment. It integrates Paymob’s payment services using 3DS and MOTO flows, offering a unified checkout process and card token-based payments.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🧾 Features
 
-## Description
+- Create 3DS payment intentions
+- Retrieve 3DS checkout URLs
+- Create MOTO payment intentions
+- Make direct payments with saved card tokens
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
+## 📁 Project Structure
 
-```bash
-$ npm install
-```
+src/
+│
+├── payment/
+│ ├── payment.controller.ts # Payment endpoints
+│ ├── payment.service.ts # Business logic and Paymob interaction
+│
+├── utilties/
+│ └── payment.utils.ts # Reusable Paymob HTTP utility functions
+│
+├── interfaces/
+│ └── payment.interface.ts # Types/interfaces for Payment Intentions
+│
+├── constants/
+│ └── payment.constants.ts # Default values, API endpoints, card token
 
-## Compile and run the project
 
-```bash
-# development
-$ npm run start
 
-# watch mode
-$ npm run start:dev
+## 🛠 Installation
 
-# production mode
-$ npm run start:prod
-```
+1. **Clone the repository**
+   git clone https://github.com/Momensale7/paymob-case-study.git
+   cd paymob-case-study
+Install dependencies
 
-## Run tests
+npm install
+Environment Variables
 
-```bash
-# unit tests
-$ npm run test
+Create a .env file at the root:
 
-# e2e tests
-$ npm run test:e2e
+PAYMOB_API_KEY="ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRBek9EQXpNeXdpYm1GdFpTSTZJbWx1YVhScFlXd2lmUS55N25WYTJjV3V2Q3lEUDVMWk43VTFqTFBvU29yaUlMWkpLY25qSlhMYXBoS0hQOTliZWJqb0FOSkMybWg3eUo1MU95UXBERVBPWllWazJzaWJCSGRXUQ=="
+PAYMOB_HMAC_SECRET=44D5E04376B96EFC7E90E90E1B7EFE9D
+PAYMOB_SECRET_KEY=egy_sk_test_d8b80e338140d0df9dcd3a35ab65c5471bd0629ad474a39b5164da8aedbc81d7
+PAYMOB_3DS_INTEGRATION_ID=5048104
+PAYMOB_MOTO_INTEGRATION_ID=5078185
+MID=1038033
+JWT_SECRET="jhy300"
 
-# test coverage
-$ npm run test:cov
-```
 
-## Deployment
+npm run start:dev
+📡 API Endpoints
+POST /payment/intention/3ds
+Create a 3DS payment intention and return payment details with checkout URL.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Body:
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+{
+  "amount": 10000,
+  "currency": "EGP",
+  "billing_data": { ... },
+  "customer": { ... }
+}
+POST /payment/intention/3ds/get-url
+Returns only the checkout URL for testing or redirect.
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+Body: Same as above
+{
+  "payment_url": "https://accept.paymob.com/unifiedcheckout/...",
+  "message": "Copy this URL into your browser to complete payment"
+}
+POST /payment/intention/moto
+Create a MOTO payment intention (useful for saved card tokens).
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+POST /payment/moto/pay
+Complete payment with a saved card token.
 
-## Resources
+Body:
 
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+{
+  "payment_key": "generated-key-from-intention",
+  "cardToken": "your-saved-card-token"
+}
