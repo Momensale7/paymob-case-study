@@ -40,7 +40,8 @@ export async function createIntention(
             last_name: "saleh",
             email: "momensaleh2468@gmail.com",
         },
-        extras: paymentData.extras || {}
+        extras: paymentData.extras || {},
+        notification_url:"https://webhook.site/03986ef1-32f6-4c9c-bc21-9e81d9b816c4", 
     };
     
     const response = await firstValueFrom(
