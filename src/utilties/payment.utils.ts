@@ -3,6 +3,7 @@ import { firstValueFrom } from 'rxjs';
 import { PaymentIntentionData, PaymentIntentionResponse } from '../interfaces/payment.interface';
 import { API_ENDPOINTS, DEFAULT_PAYMENT_VALUES } from '../constants/payment.constants';
 import { CARD_TOKEN } from './../constants/payment.constants';
+import { Response } from 'express';
 
 export async function createIntention(
     http: HttpService,
@@ -10,7 +11,6 @@ export async function createIntention(
     paymentData: Partial<PaymentIntentionData>,
     integrationId: number
 ): Promise<PaymentIntentionResponse> {
-    // Use provided data or fall back to defaults if specific fields are missing
     const requestData = {
         card_tokens:[CARD_TOKEN],
         amount: paymentData.amount || DEFAULT_PAYMENT_VALUES.AMOUNT,
@@ -55,8 +55,11 @@ export async function createIntention(
         ),
     );
     
+    // console.log("client_secret", response.data.client_secret);
+    
     return response.data as PaymentIntentionResponse;
 }
+
 export async function payWithMoto(
     http: HttpService,
     secretKey: string,

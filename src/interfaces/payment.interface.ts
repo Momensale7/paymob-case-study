@@ -39,5 +39,6 @@ export interface PaymentIntentionResponse {
     created_at: string;
     amount_cents: number;
     token: string;
+    client_secret:string
     // Add more fields as needed based\ on the actual API response
 }
