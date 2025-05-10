@@ -28,8 +28,6 @@ src/
 ├── constants/
 │ └── payment.constants.ts # Default values, API endpoints, card token
 
-
-
 ## 🛠 Installation
 
 1. **Clone the repository**
