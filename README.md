@@ -33,6 +33,7 @@ src/
 1. **Clone the repository**
    git clone https://github.com/Momensale7/paymob-case-study.git
    cd paymob-case-study
+
 Install dependencies
 
 npm install
@@ -48,7 +49,7 @@ PAYMOB_MOTO_INTEGRATION_ID=5078185
 MID=1038033
 JWT_SECRET="jhy300"
 
-
+Run the app
 npm run start:dev
 📡 API Endpoints
 POST /payment/intention/3ds
