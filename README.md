@@ -51,6 +51,9 @@ JWT_SECRET="jhy300"
 
 Run the app
 npm run start:dev
+The API will be available at:
+http://localhost:3000/
+ℹ️ Note: The backend runs on port 3000 by default. Make sure your Postman or frontend requests use this base URL.
 📡 API Endpoints
 POST /payment/intention/3ds
 Create a 3DS payment intention and return payment details with checkout URL.
