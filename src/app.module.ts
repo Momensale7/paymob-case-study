@@ -10,7 +10,7 @@ import { AuthModule } from './modules/Auth/auth.module';
 @Module({
   imports: [ ConfigModule.forRoot({
     isGlobal: true,
-  }),PaymentModule,AuthModule],
+  }),PaymentModule],
   controllers: [AppController],
   providers: [AppService],
 })

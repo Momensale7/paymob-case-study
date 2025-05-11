@@ -33,6 +33,17 @@ export interface PaymentIntentionData {
     customer: CustomerData;
     extras?: Record<string, any>;
 }
+export type PaymenyKey = {
+   integration: number,
+   key: string,
+   gateway_type: string,
+   iframe_id: number,
+   order_id: number,
+   redirection_url: string,
+   save_card: boolean
+}
+
+
 
 export interface PaymentIntentionResponse {
     id: string;
@@ -40,5 +51,5 @@ export interface PaymentIntentionResponse {
     amount_cents: number;
     token: string;
     client_secret:string
-    // Add more fields as needed based\ on the actual API response
+    payment_keys:PaymenyKey[]
 }
